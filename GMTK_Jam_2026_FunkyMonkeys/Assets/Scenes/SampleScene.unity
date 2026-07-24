@@ -387,13 +387,33 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1743550172814105161, guid: e0ab927c0c82fc246ae8da57ebf5827b, type: 3}
+      propertyPath: speed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1743550172814105161, guid: e0ab927c0c82fc246ae8da57ebf5827b, type: 3}
+      propertyPath: jumpingPower
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318865167156121680, guid: e0ab927c0c82fc246ae8da57ebf5827b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318865167156121680, guid: e0ab927c0c82fc246ae8da57ebf5827b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5318865167156121680, guid: e0ab927c0c82fc246ae8da57ebf5827b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5318865167156121680, guid: e0ab927c0c82fc246ae8da57ebf5827b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -45.76
       objectReference: {fileID: 0}
     - target: {fileID: 5318865167156121680, guid: e0ab927c0c82fc246ae8da57ebf5827b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.93
+      value: 8.54
       objectReference: {fileID: 0}
     - target: {fileID: 5318865167156121680, guid: e0ab927c0c82fc246ae8da57ebf5827b, type: 3}
       propertyPath: m_LocalPosition.z
