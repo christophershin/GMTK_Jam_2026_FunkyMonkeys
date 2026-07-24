@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4597822011797185974}
   - component: {fileID: 8787750378913299106}
   - component: {fileID: 3437384401394152032}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Container
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -149,7 +149,7 @@ GameObject:
   - component: {fileID: 5715060723659448916}
   - component: {fileID: 3950996951400205395}
   - component: {fileID: 4612494956521603919}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Decal (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 5010705842051408513}
   - component: {fileID: 1176117398647467945}
   - component: {fileID: 4978783383544262347}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Decal (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 4774412765424502813}
   - component: {fileID: 7086684057301468144}
   - component: {fileID: 3413418857888809666}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Decal (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +561,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 439149476037739234}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Storage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -603,7 +603,7 @@ GameObject:
   - component: {fileID: 3035173588093886682}
   - component: {fileID: 6749880779905093052}
   - component: {fileID: 3824793637135522261}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Decal (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -741,7 +741,7 @@ GameObject:
   - component: {fileID: 7612709689647233705}
   - component: {fileID: 1906612848985354209}
   - component: {fileID: 7448153656923722205}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Decal (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 1478225198419130929}
   - component: {fileID: 4182739256133216996}
   - component: {fileID: 2840188541734711806}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Decal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1017,7 +1017,7 @@ GameObject:
   - component: {fileID: 268025161202034011}
   - component: {fileID: 7699113251834719568}
   - component: {fileID: 6623610854820416995}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Decal (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
