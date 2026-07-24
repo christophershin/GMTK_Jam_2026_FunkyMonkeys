@@ -9,8 +9,6 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     private float horizontal;
-    private bool FireDMG;
-    private bool inflictBurn;
 
     public int MaxPlayerHP = 4;
     public int PlayerHP;
@@ -25,7 +23,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float minFallingActivation;
     [SerializeField] private Camera _mainCamera;
 
-    private bool isFacingRight = true;
 
     public int playerscore;
     public TMP_Text score;
@@ -35,9 +32,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform GroundCheck;
     [SerializeField] private LayerMask groundLayer;
 
-    [SerializeField] private GameObject parent;
-
-    private bool CanStopTime;
 
     public GameObject deathMessage;
     public GameObject winMessage;
@@ -105,7 +99,6 @@ public class PlayerController : MonoBehaviour
 
 
 
-        //gravityMulitplication();
         fakeGravity();
 
 
@@ -138,16 +131,6 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(GroundCheck.position, 0.2f, groundLayer);
-    }
-    private void Flip()
-    {
-        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
-        {
-            isFacingRight = !isFacingRight;
-            Vector3 localScale = transform.localScale;
-            localScale.x *= -1f;
-            transform.localScale = localScale;
-        }
     }
 
 
