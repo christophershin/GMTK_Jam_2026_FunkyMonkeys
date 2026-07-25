@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     private float horizontal;
+    private bool isFacingRight = false;
 
     public int MaxPlayerHP = 4;
     public int PlayerHP;
@@ -43,8 +44,6 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         PlayerHP = MaxPlayerHP;
-        //deathMessage.SetActive(false);
-        //winMessage.SetActive(false);
         Time.timeScale = 1.0f;
         //PlayerHealthBar.value = MaxPlayerHP;
         rb = GetComponent<Rigidbody2D>();
@@ -59,18 +58,7 @@ public class PlayerController : MonoBehaviour
 
 
         horizontal = Input.GetAxisRaw("Horizontal");
-
-        //if (horizontal != 0f)
-        //{
-        //    animator.SetBool("IsWalking", true);
-
-        //}
-
-        //if (horizontal == 0f)
-        //{
-        //    animator.SetBool("IsWalking", false);
-
-        //}
+        
 
 
         // jumping 
@@ -109,21 +97,25 @@ public class PlayerController : MonoBehaviour
         {
             PlayerHP = 0;
             Debug.Log("GAME OVER");
-            deathMessage.SetActive(true);
-            Time.timeScale = 0f;
         }
 
 
-        //Flip();
+        Flip();
 
-
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, 3 * Time.deltaTime);
+        
     }
 
     private void FixedUpdate()
     {
         rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+        
 
+    }
 
+    private void LateUpdate()
+    {
+        _mainCamera.transform.rotation = Quaternion.identity;
     }
 
 
@@ -131,6 +123,19 @@ public class PlayerController : MonoBehaviour
     public bool IsGrounded()
     {
         return Physics2D.OverlapCircle(GroundCheck.position, 0.2f, groundLayer);
+    }
+
+
+    private void Flip()
+    {
+        if (isFacingRight && horizontal < 0f || !isFacingRight && horizontal > 0f)
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+        
     }
 
 
