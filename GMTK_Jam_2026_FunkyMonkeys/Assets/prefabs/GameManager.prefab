@@ -565,12 +565,12 @@ GameObject:
   - component: {fileID: 5651800367618569824}
   - component: {fileID: 1524156438647221958}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: PlayerPointSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5651800367618569824
 RectTransform:
   m_ObjectHideFlags: 0
@@ -639,7 +639,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0.444
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -919,7 +919,7 @@ RectTransform:
   m_Father: {fileID: 5384124918489346910}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1187,9 +1187,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19571933f40bcc940a2ba64adb0315cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  countdown: 60
+  MaxCountdown: 60
+  SliderItem: {fileID: 1524156438647221958}
+  pointsText: {fileID: 124451529235977717, guid: a457a3f849c26f042ad7969951bb1ee1, type: 3}
   Player: {fileID: 0}
   bombTimerText: {fileID: 6778941661466482460}
   playerHealthBar: {fileID: 4095424784200090308}
+  playerPointSlider: {fileID: 3717848648502743487}
   goToMenuButton: {fileID: 1160120189185422762}
-  PlayerScore: 0
+  playerPoints: 0
+  MaxPlayerPoints: 100
+  StandingStillPointsReduct: 5
+  MovingPointsGain: 3

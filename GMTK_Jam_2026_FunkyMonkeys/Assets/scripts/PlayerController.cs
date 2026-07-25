@@ -9,7 +9,9 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    private float horizontal;
+
+    [HideInInspector]
+    public float horizontal;
     private bool isFacingRight = false;
 
     public int MaxPlayerHP = 4;
@@ -29,7 +31,8 @@ public class PlayerController : MonoBehaviour
     public int playerscore;
     public TMP_Text score;
     public Scrollbar bombscrollbar;
-    private float bombDiffuseValue = 0;
+    [HideInInspector]
+    public float bombDiffuseValue = 0;
     private float scrollbarTimer = 0;
 
 
@@ -56,36 +59,40 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+        if (PlayerHP >0)
+        {
+            horizontal = Input.GetAxisRaw("Horizontal");
 
-        horizontal = Input.GetAxisRaw("Horizontal");
+
+            // jumping 
+            if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+            {
+
+                //float cliplength = PlayerSounds[0].length;
+                //SoundManager.SoundInst.PlaySoundFXClip(PlayerSounds[0], transform, 1f, cliplength, 0.6f, 0.7f, 15);
+
+                gravityMultiplier = 0f;
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+                doubleJumpCooldown = true;
+            }
+
+            // double jump
+            if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && doubleJumpCooldown == true)
+            {
+                //float cliplength = PlayerSounds[0].length;
+                //SoundManager.SoundInst.PlaySoundFXClip(PlayerSounds[0], transform, 1f, cliplength, 0.6f, 0.7f, 15);
+
+                doubleJumpCooldown = false;
+                gravityMultiplier = 0f;
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+
+            }
+
+
+            Flip();
+        }
+            
         
-
-
-        // jumping 
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
-        {
-
-            //float cliplength = PlayerSounds[0].length;
-            //SoundManager.SoundInst.PlaySoundFXClip(PlayerSounds[0], transform, 1f, cliplength, 0.6f, 0.7f, 15);
-
-            gravityMultiplier = 0f;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
-            doubleJumpCooldown = true;
-        }
-
-        // double jump
-        if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && doubleJumpCooldown == true)
-        {
-            //float cliplength = PlayerSounds[0].length;
-            //SoundManager.SoundInst.PlaySoundFXClip(PlayerSounds[0], transform, 1f, cliplength, 0.6f, 0.7f, 15);
-
-            doubleJumpCooldown = false;
-            gravityMultiplier = 0f;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
-
-        }
-
-
 
         fakeGravity();
 
@@ -97,7 +104,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-        Flip();
+        
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, 3 * Time.deltaTime);
 
@@ -154,7 +161,7 @@ public class PlayerController : MonoBehaviour
 
             bombscrollbar.GetComponent<Image>().fillAmount = bombDiffuseValue;
 
-            if (bombDiffuseValue >=0)
+            if (bombDiffuseValue >=0 && bombDiffuseValue<1)
             {
                 scrollbarTimer -= Time.deltaTime;
 
@@ -164,6 +171,9 @@ public class PlayerController : MonoBehaviour
 
 
                 }
+            }else if (bombDiffuseValue >= 1)
+            {
+                bombDiffuseValue = 1;
             }
 
 
@@ -237,17 +247,6 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag == "Bomb")
         {
             collision.gameObject.transform.GetChild(0).gameObject.SetActive(true);
-        }
-    }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Bomb")
-        {
-
-
-
-
         }
     }
 
