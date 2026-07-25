@@ -698,6 +698,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6059474827984996270, guid: 9b08cee43aaddd240890e84da43da220, type: 3}
+      propertyPath: m_text
+      value: 'Diffuse Bomb
+
+
+        Hold E:
+
+
+'
+      objectReference: {fileID: 0}
     - target: {fileID: 6867087533431261525, guid: 9b08cee43aaddd240890e84da43da220, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
