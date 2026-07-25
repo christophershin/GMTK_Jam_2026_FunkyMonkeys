@@ -10,7 +10,7 @@ public class FollowPlayer : MonoBehaviour
     
     [SerializeField] private CameraTriggerCheck cameraTriggerCheck;
 
-    void Update()
+    void  LateUpdate()
     {
         Transform yPos = cameraTriggerCheck.yPosition;    
         

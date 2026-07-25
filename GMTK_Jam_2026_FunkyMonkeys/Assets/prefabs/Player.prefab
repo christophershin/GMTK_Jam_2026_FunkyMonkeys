@@ -367,7 +367,7 @@ Rigidbody2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
@@ -388,18 +388,17 @@ MonoBehaviour:
   PlayerHealthBar: {fileID: 0}
   speed: 10
   jumpingPower: 100
-  maxGravityMulti: 1
+  maxGravityMulti: 1.5
   MaxVelocityY: 15
   minFallingActivation: 0
   _mainCamera: {fileID: 0}
   playerscore: 0
   score: {fileID: 0}
+  bombscrollbar: {fileID: 0}
   GroundCheck: {fileID: 3281812228557715918}
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  deathMessage: {fileID: 0}
-  winMessage: {fileID: 0}
   animator: {fileID: 0}
   PlayerSounds: []
 --- !u!114 &4941565626415238994

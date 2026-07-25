@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -27,15 +28,15 @@ public class PlayerController : MonoBehaviour
 
     public int playerscore;
     public TMP_Text score;
+    public Scrollbar bombscrollbar;
+    private float bombDiffuseValue = 0;
+    private float scrollbarTimer = 0;
 
 
     private Rigidbody2D rb;
     [SerializeField] private Transform GroundCheck;
     [SerializeField] private LayerMask groundLayer;
 
-
-    public GameObject deathMessage;
-    public GameObject winMessage;
 
     public Animator animator;
 
@@ -45,7 +46,6 @@ public class PlayerController : MonoBehaviour
     {
         PlayerHP = MaxPlayerHP;
         Time.timeScale = 1.0f;
-        //PlayerHealthBar.value = MaxPlayerHP;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -90,9 +90,6 @@ public class PlayerController : MonoBehaviour
         fakeGravity();
 
 
-        //Display Player Health
-        //PlayerHealthBar.value = PlayerHP;
-
         if (PlayerHP <= 0)
         {
             PlayerHP = 0;
@@ -103,6 +100,8 @@ public class PlayerController : MonoBehaviour
         Flip();
 
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.identity, 3 * Time.deltaTime);
+
+        Bomb_UI();
         
     }
 
@@ -139,6 +138,40 @@ public class PlayerController : MonoBehaviour
     }
 
 
+    private void Bomb_UI()
+    {
+        if (bombscrollbar.IsActive())
+        {
+
+            if (Input.GetKey(KeyCode.E))
+            {
+
+                bombDiffuseValue += 0.3f*Time.deltaTime;
+                scrollbarTimer = 0.5f;
+            }
+
+
+
+            bombscrollbar.GetComponent<Image>().fillAmount = bombDiffuseValue;
+
+            if (bombDiffuseValue >=0)
+            {
+                scrollbarTimer -= Time.deltaTime;
+
+                if (scrollbarTimer <= 0)
+                {
+                    bombDiffuseValue -= 0.3f*Time.deltaTime;
+
+
+                }
+            }
+
+
+        }
+
+    }
+
+
 
 
     void fakeGravity()
@@ -171,10 +204,7 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.tag == "DeathBox")
-        {
-            PlayerHP = 0;
-        }
+
 
         if (other.gameObject.layer == 3 && IsGrounded())
         {
@@ -184,6 +214,13 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if (collision.gameObject.tag == "DeathBox")
+        {
+            PlayerHP = 0;
+        }
+
+
 
         if (collision.gameObject.tag == "Projectile")
         {
@@ -197,9 +234,29 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
         }
 
-        if (collision.gameObject.tag == "LevelEnd")
+        if (collision.gameObject.tag == "Bomb")
         {
-            winMessage.SetActive(true);
+            collision.gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Bomb")
+        {
+
+
+
+
+        }
+    }
+
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Bomb")
+        {
+            collision.gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
     }
 
