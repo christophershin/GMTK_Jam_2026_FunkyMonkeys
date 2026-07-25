@@ -43,10 +43,13 @@ public class PlayerController : MonoBehaviour
 
     public Animator animator;
 
+    private GameObject gameManager;
+
     [SerializeField] private AudioClip[] PlayerSounds;
 
     void Start()
     {
+        gameManager = GameObject.Find("GameManager");
         PlayerHP = MaxPlayerHP;
         Time.timeScale = 1.0f;
         rb = GetComponent<Rigidbody2D>();
@@ -231,14 +234,6 @@ public class PlayerController : MonoBehaviour
         }
 
 
-
-        if (collision.gameObject.tag == "Projectile")
-        {
-
-            //TakePlayerDamage(collision.gameObject.GetComponent<Projectiles>().damage);
-            //collision.gameObject.GetComponent<Projectiles>().damage = 0;
-        }
-
         if (collision.gameObject.layer == 3)
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);
@@ -259,6 +254,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
+    public void TakeDamage(int num)
+    {
+        PlayerHP -= num;
+        gameManager.GetComponent<GameManager>().playerPoints += 50;
+        gameManager.GetComponent<GameManager>().CreatePointsText("+", 50);
+
+    }
 
 
 }

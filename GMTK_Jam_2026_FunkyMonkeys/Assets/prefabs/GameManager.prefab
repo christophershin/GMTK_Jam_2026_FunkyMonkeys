@@ -1196,6 +1196,6 @@ MonoBehaviour:
   playerPointSlider: {fileID: 3717848648502743487}
   goToMenuButton: {fileID: 1160120189185422762}
   playerPoints: 0
-  MaxPlayerPoints: 100
-  StandingStillPointsReduct: 5
-  MovingPointsGain: 3
+  MaxPlayerPoints: 1000
+  StandingStillPointsReduct: 10
+  MovingPointsGain: 8

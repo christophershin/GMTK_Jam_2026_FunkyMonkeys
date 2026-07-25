@@ -90,58 +90,77 @@ public class GameManager : MonoBehaviour
         if (playerHealth <= 0)
         {
             goToMenuButton.SetActive(true);
+
+            if (playerPoints > 0)
+            {
+                CreatePointsText("-", playerPoints);
+                playerPoints -= playerPoints;
+                
+            }
+
         }
     }
 
 
     void PlayerPointsFunction()
     {
-        playerPointSlider.GetComponent<Slider>().value = playerPoints;
 
-
-
-        if (Player.GetComponent<PlayerController>().bombDiffuseValue < 1 && !isPlayerWin)
+        if (Player.GetComponent<PlayerController>().PlayerHP > 0)
         {
-            float playerVelocity = Player.GetComponent<PlayerController>().horizontal;
 
-            if (playerVelocity == 0)
+
+            if (Player.GetComponent<PlayerController>().bombDiffuseValue < 1 && !isPlayerWin)
             {
-                standingStillTimer -= Time.deltaTime;
+                float playerVelocity = Player.GetComponent<PlayerController>().horizontal;
 
-
-                if (standingStillTimer <= 0)
+                if (playerVelocity == 0)
                 {
-                    playerPoints -= StandingStillPointsReduct;
+                    standingStillTimer -= Time.deltaTime;
 
-                    standingStillTimer = MaxStandingStillTimer;
+
+                    if (standingStillTimer <= 0)
+                    {
+                        playerPoints -= StandingStillPointsReduct;
+                        CreatePointsText("-", StandingStillPointsReduct);
+
+                        standingStillTimer = MaxStandingStillTimer;
+                    }
+
+                }
+                else
+                {
+                    standingStillTimer -= Time.deltaTime;
+
+
+                    if (standingStillTimer <= 0)
+                    {
+                        CreatePointsText("+", MovingPointsGain);
+                        playerPoints += MovingPointsGain;
+
+                        standingStillTimer = MaxStandingStillTimer;
+                    }
                 }
 
             }
-            else
+            else if (Player.GetComponent<PlayerController>().bombDiffuseValue >= 0 && !isPlayerWin)
             {
-                standingStillTimer -= Time.deltaTime;
 
+                isPlayerWin = true;
 
-                if (standingStillTimer <= 0)
-                {
-                    CreatePointsText("+", MovingPointsGain);
-                    playerPoints += MovingPointsGain;
+                float multipliedScore = (float)playerPoints * ((countdown / MaxCountdown));
 
-                    standingStillTimer = MaxStandingStillTimer;
-                }
+                playerPoints += (int)multipliedScore;
+                CreatePointsText("+", multipliedScore);
+
             }
-
-        }else if (Player.GetComponent<PlayerController>().bombDiffuseValue >= 0 && !isPlayerWin)
-        {
-
-            isPlayerWin = true;
-
-            float multipliedScore = (float)playerPoints * (1 + (countdown / MaxCountdown));
-
-            playerPoints = (int)multipliedScore;
-
-            
         }
+
+
+        
+
+
+
+        playerPointSlider.GetComponent<Slider>().value = playerPoints;
     }
 
 
@@ -149,7 +168,7 @@ public class GameManager : MonoBehaviour
     public void CreatePointsText(string symbol, float numTex)
     {
         GameObject p = Instantiate(pointsText, SliderItem.transform);
-        p.GetComponent<TextMeshProUGUI>().text = symbol.ToString() + numTex.ToString();
+        p.GetComponent<TextMeshProUGUI>().text = symbol.ToString() + ((int)numTex).ToString();
         p.transform.position = SliderItem.transform.position + new Vector3(400, 0, 0);
 
     }

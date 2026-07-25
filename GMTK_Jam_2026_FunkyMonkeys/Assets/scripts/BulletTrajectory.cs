@@ -4,6 +4,7 @@ public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     [SerializeField] private float lifetime = 10f;
+    [SerializeField] private int bulletDamage = 10;
 
     private Vector3 moveVelocity;
 
@@ -29,6 +30,7 @@ public class Bullet : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            collision.GetComponent<PlayerController>().TakeDamage(bulletDamage);
             Destroy(gameObject);
         }
     }
