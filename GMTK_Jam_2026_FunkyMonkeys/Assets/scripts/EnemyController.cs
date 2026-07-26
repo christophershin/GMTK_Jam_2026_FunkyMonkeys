@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -11,8 +12,12 @@ public class EnemyController : MonoBehaviour
     
     private float time = 0;
 
+    [SerializeField] private List<AudioClip> Enemysounds;
+    private AudioSource EnemyAudioSource;
+
     private void Start()
     {
+        EnemyAudioSource = GetComponent<AudioSource>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
         rotator = this.transform.GetChild(0);
     }
@@ -40,6 +45,9 @@ public class EnemyController : MonoBehaviour
             GameObject bul =  Instantiate(bullet, handPos.position, rotator.rotation);
             Bullet bulScript = bul.GetComponent<Bullet>();
             bulScript.Initialize(handPos.position, player.position);
+
+            EnemyAudioSource.clip = Enemysounds[1];
+            EnemyAudioSource.Play();
         }
 
         
@@ -52,6 +60,8 @@ public class EnemyController : MonoBehaviour
 
         if (EnemyHealth <= 0)
         {
+            EnemyAudioSource.clip = Enemysounds[0];
+            EnemyAudioSource.Play();
             Destroy(this.gameObject);
         }
     }

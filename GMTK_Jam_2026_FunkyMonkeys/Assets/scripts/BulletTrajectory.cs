@@ -1,12 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private float speed = 10f;
     [SerializeField] private float lifetime = 10f;
-    [SerializeField] private int bulletDamage = 10;
+    [SerializeField] private int bulletDamage = 5;
 
     private Vector3 moveVelocity;
+
+
+    private void Start()
+    {
+        StartCoroutine(DestroyBullet());
+    }
 
     public void Initialize(Vector3 startPos, Vector3 endPos)
     {
@@ -38,6 +45,16 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+    }
+
+
+    IEnumerator DestroyBullet()
+    {
+
+        yield return new WaitForSeconds(2f);
+
+        Destroy(this.gameObject);
+        
     }
 
 }

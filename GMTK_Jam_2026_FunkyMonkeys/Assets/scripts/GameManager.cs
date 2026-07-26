@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
+using System.Collections.Generic;
 
 
 public class GameManager : MonoBehaviour
@@ -35,13 +36,21 @@ public class GameManager : MonoBehaviour
     private float standingStillTimer = 0;
     private float MaxStandingStillTimer = 1;
 
+    [SerializeField] private List<AudioClip> sounds;
+    private AudioSource managerAudioSource;
+
 
     void Start()
     {
+        managerAudioSource = GetComponent<AudioSource>();
         endofGameText = GameObject.Find("EndofGameText");
         playerPointSlider.GetComponent<Slider>().maxValue = MaxPlayerPoints;
         goToMenuButton.SetActive(false);
         countdown = MaxCountdown;
+
+        managerAudioSource.clip = sounds[0];
+        managerAudioSource.loop = sounds[0];
+        managerAudioSource.Play();
     }
 
     // Update is called once per frame
@@ -55,13 +64,21 @@ public class GameManager : MonoBehaviour
         }
 
 
-
-
-
-        if (countdown <= 0)
+        if (countdown == 0)
         {
-            countdown = 0;
+            managerAudioSource.clip = sounds[1];
+            managerAudioSource.Play();
+        }
+
+
+
+
+        if (countdown < 0)
+        {
+            countdown = -1;
             Player.GetComponent<PlayerController>().PlayerHP = 0;
+
+
         }
 
 

@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
@@ -16,7 +17,7 @@ public class PlayerController : MonoBehaviour
 
     public int MaxPlayerHP = 4;
     public int PlayerHP;
-    public Slider PlayerHealthBar;
+    //public Slider PlayerHealthBar;
 
     public float speed;
     public float jumpingPower;
@@ -45,10 +46,12 @@ public class PlayerController : MonoBehaviour
 
     private GameObject gameManager;
 
-    [SerializeField] private AudioClip[] PlayerSounds;
+    [SerializeField] private List<AudioClip> playersounds;
+    private AudioSource playerAudioSource;
 
     void Start()
     {
+        playerAudioSource = GetComponent<AudioSource>();
         gameManager = GameObject.Find("GameManager");
         PlayerHP = MaxPlayerHP;
         Time.timeScale = 1.0f;
@@ -71,23 +74,25 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
             {
 
-                //float cliplength = PlayerSounds[0].length;
-                //SoundManager.SoundInst.PlaySoundFXClip(PlayerSounds[0], transform, 1f, cliplength, 0.6f, 0.7f, 15);
-
                 gravityMultiplier = 0f;
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
                 doubleJumpCooldown = true;
+
+                playerAudioSource.clip = playersounds[1];
+                playerAudioSource.Play();
             }
 
             // double jump
             if (Input.GetKeyDown(KeyCode.Space) && !IsGrounded() && doubleJumpCooldown == true)
             {
-                //float cliplength = PlayerSounds[0].length;
-                //SoundManager.SoundInst.PlaySoundFXClip(PlayerSounds[0], transform, 1f, cliplength, 0.6f, 0.7f, 15);
+
 
                 doubleJumpCooldown = false;
                 gravityMultiplier = 0f;
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpingPower);
+
+                playerAudioSource.clip = playersounds[1];
+                playerAudioSource.Play();
 
             }
 
@@ -220,7 +225,7 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.layer == 3 && IsGrounded())
         {
-            //SoundManager.SoundInst.PlaySoundFXClip(PlayerSounds[2], transform, 0.6f, 0.4f, 0.6f, 0.6f, 20);
+
         }
     }
 
@@ -265,8 +270,11 @@ public class PlayerController : MonoBehaviour
     public void TakeDamage(int num)
     {
         PlayerHP -= num;
-        gameManager.GetComponent<GameManager>().playerPoints += 50;
-        gameManager.GetComponent<GameManager>().CreatePointsText("+", 50);
+        playerAudioSource.clip = playersounds[0];
+        playerAudioSource.Play();
+
+        gameManager.GetComponent<GameManager>().playerPoints += 10;
+        gameManager.GetComponent<GameManager>().CreatePointsText("+", 10);
 
     }
 
