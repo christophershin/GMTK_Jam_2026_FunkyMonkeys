@@ -21,11 +21,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject pointsText;
     [SerializeField] private GameObject Player;
     [SerializeField] private TextMeshProUGUI bombTimerText;
+    [SerializeField] private TextMeshProUGUI PointsGainedText;
+    [SerializeField] private TextMeshProUGUI highscoreText;
     [SerializeField] private GameObject playerHealthBar;
     [SerializeField] private GameObject playerPointSlider;
     [SerializeField] private GameObject goToMenuButton;
     
     public int playerPoints = 0;
+    public int highScore = 0;
     public int MaxPlayerPoints = 100;
     public bool isPlayerWin = false;
 
@@ -43,6 +46,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        PointsGainedText.enabled = false;
+        highscoreText.enabled = false;
         managerAudioSource = GetComponent<AudioSource>();
         endofGameText = GameObject.Find("EndofGameText");
         playerPointSlider.GetComponent<Slider>().maxValue = MaxPlayerPoints;
@@ -66,7 +71,6 @@ public class GameManager : MonoBehaviour
         }
 
 
-
         if (countdown < 0)
         {
             countdown = 1;
@@ -75,6 +79,12 @@ public class GameManager : MonoBehaviour
             managerAudioSource.loop = false;
             managerAudioSource.Play();
 
+        }
+
+        if (playerPoints > highScore && isPlayerWin)
+        {
+            highScore = playerPoints;
+            PlayerPrefs.SetInt("highscore", highScore);
         }
 
 
@@ -103,6 +113,8 @@ public class GameManager : MonoBehaviour
 
         if (playerHealth <= 0)
         {
+            PointsGainedText.enabled = true;
+            highscoreText.enabled = true;
             goToMenuButton.SetActive(true);
             endofGameText.GetComponent<TextMeshProUGUI>().text = "Holy Aura Loss";
 
@@ -167,6 +179,8 @@ public class GameManager : MonoBehaviour
             {
 
                 isPlayerWin = true;
+                PointsGainedText.enabled = true;
+                highscoreText.enabled = true;
 
                 float missingTime = MaxCountdown - countdown;
 
@@ -182,10 +196,10 @@ public class GameManager : MonoBehaviour
         }
 
 
-        
 
 
-
+        highscoreText.text ="HighScore: " +  PlayerPrefs.GetInt("highscore").ToString() + "!!";
+        PointsGainedText.text = "Points Gained: " + playerPoints.ToString();
         playerPointSlider.GetComponent<Slider>().value = playerPoints;
     }
 
