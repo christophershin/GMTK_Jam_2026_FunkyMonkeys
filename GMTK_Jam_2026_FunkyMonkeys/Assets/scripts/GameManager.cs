@@ -116,7 +116,7 @@ public class GameManager : MonoBehaviour
                 float playerVelocity = Player.GetComponent<PlayerController>().horizontal;
 
                 // if player stands still
-                if (playerVelocity == 0)
+                if (playerVelocity == 0 && playerPoints>0)
                 {
                     standingStillTimer -= Time.deltaTime;
 

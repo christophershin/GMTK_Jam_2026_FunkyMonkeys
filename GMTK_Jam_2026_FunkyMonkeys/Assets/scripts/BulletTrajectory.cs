@@ -33,5 +33,11 @@ public class Bullet : MonoBehaviour
             collision.GetComponent<PlayerController>().TakeDamage(bulletDamage);
             Destroy(gameObject);
         }
+
+        if (collision.gameObject.layer == 3)
+        {
+            Destroy(this.gameObject);
+        }
     }
+
 }
