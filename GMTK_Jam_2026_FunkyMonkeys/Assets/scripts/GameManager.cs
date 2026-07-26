@@ -5,15 +5,16 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Unity.Mathematics;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 
 public class GameManager : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
 
-    [SerializeField] private float MaxCountdown = 60f;
+    [SerializeField] private float MaxCountdown = 30f;
 
-    private float countdown;
+    public float countdown;
     private GameObject endofGameText;
 
     [SerializeField] private Slider SliderItem;
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     
     public int playerPoints = 0;
     public int MaxPlayerPoints = 100;
-    private bool isPlayerWin = false;
+    public bool isPlayerWin = false;
 
     [SerializeField] private int StandingStillPointsReduct = 10;
     [SerializeField] private int MovingPointsGain = 5;
@@ -51,33 +52,28 @@ public class GameManager : MonoBehaviour
         managerAudioSource.clip = sounds[0];
         managerAudioSource.loop = sounds[0];
         managerAudioSource.Play();
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        if (countdown >=0 && !isPlayerWin)
+        if (countdown >=0 && !isPlayerWin && Player.GetComponent<PlayerController>().PlayerHP>0)
         {
             countdown -= Time.deltaTime;
             bombTimerText.text = ((int)countdown).ToString();
         }
 
 
-        if (countdown == 0)
-        {
-            managerAudioSource.clip = sounds[1];
-            managerAudioSource.Play();
-        }
-
-
-
 
         if (countdown < 0)
         {
-            countdown = -1;
+            countdown = 1;
             Player.GetComponent<PlayerController>().PlayerHP = 0;
-
+            managerAudioSource.clip = sounds[1];
+            managerAudioSource.loop = false;
+            managerAudioSource.Play();
 
         }
 
@@ -110,8 +106,13 @@ public class GameManager : MonoBehaviour
             goToMenuButton.SetActive(true);
             endofGameText.GetComponent<TextMeshProUGUI>().text = "Holy Aura Loss";
 
-            if (playerPoints > 0)
+
+
+            if (playerPoints >0)
             {
+
+
+
                 CreatePointsText("-", playerPoints);
                 playerPoints -= playerPoints;
                 

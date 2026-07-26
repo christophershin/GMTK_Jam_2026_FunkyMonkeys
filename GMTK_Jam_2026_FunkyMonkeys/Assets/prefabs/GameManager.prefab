@@ -2581,7 +2581,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19571933f40bcc940a2ba64adb0315cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  MaxCountdown: 60
+  MaxCountdown: 10
+  countdown: 0
   SliderItem: {fileID: 1524156438647221958}
   pointsText: {fileID: 124451529235977717, guid: a457a3f849c26f042ad7969951bb1ee1, type: 3}
   Player: {fileID: 0}
@@ -2591,6 +2592,7 @@ MonoBehaviour:
   goToMenuButton: {fileID: 1160120189185422762}
   playerPoints: 0
   MaxPlayerPoints: 1000
+  isPlayerWin: 0
   StandingStillPointsReduct: 10
   MovingPointsGain: 8
   sounds:
@@ -2615,12 +2617,12 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 125
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 1000
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 1
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0

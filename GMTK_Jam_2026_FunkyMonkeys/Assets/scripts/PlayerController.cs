@@ -65,7 +65,7 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
-        if (PlayerHP >0)
+        if (PlayerHP>0 && gameManager.GetComponent<GameManager>().isPlayerWin == false)
         {
             horizontal = Input.GetAxisRaw("Horizontal");
 
@@ -109,6 +109,7 @@ public class PlayerController : MonoBehaviour
         {
             PlayerHP = 0;
             Debug.Log("GAME OVER");
+           
         }
 
 
@@ -155,7 +156,7 @@ public class PlayerController : MonoBehaviour
 
     private void Bomb_UI()
     {
-        if (bombscrollbar.IsActive())
+        if (bombscrollbar.IsActive() && PlayerHP>0 && gameManager.GetComponent<GameManager>().isPlayerWin == false)
         {
 
             if (Input.GetKey(KeyCode.E))
@@ -234,9 +235,9 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("EnemyHead"))
         {
-            gameManager.GetComponent<GameManager>().playerPoints += 100;
-            gameManager.GetComponent<GameManager>().CreatePointsText("+", 100);
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 200);
+            gameManager.GetComponent<GameManager>().playerPoints += 50;
+            gameManager.GetComponent<GameManager>().CreatePointsText("+", 50);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 50);
             collision.gameObject.GetComponentInParent<EnemyController>().EnemyTakeDamage(50);
         }
 
