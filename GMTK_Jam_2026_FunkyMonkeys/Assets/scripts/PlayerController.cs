@@ -156,7 +156,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKey(KeyCode.E))
             {
 
-                bombDiffuseValue += 0.3f*Time.deltaTime;
+                bombDiffuseValue += 0.7f*Time.deltaTime;
                 scrollbarTimer = 0.5f;
             }
 
@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
 
                 if (scrollbarTimer <= 0)
                 {
-                    bombDiffuseValue -= 0.3f*Time.deltaTime;
+                    bombDiffuseValue -= 0.5f*Time.deltaTime;
 
 
                 }
@@ -218,7 +218,6 @@ public class PlayerController : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
 
-
         if (other.gameObject.layer == 3 && IsGrounded())
         {
             //SoundManager.SoundInst.PlaySoundFXClip(PlayerSounds[2], transform, 0.6f, 0.4f, 0.6f, 0.6f, 20);
@@ -227,6 +226,14 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+
+        if (collision.gameObject.CompareTag("EnemyHead"))
+        {
+            gameManager.GetComponent<GameManager>().playerPoints += 100;
+            gameManager.GetComponent<GameManager>().CreatePointsText("+", 100);
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 200);
+            collision.gameObject.GetComponentInParent<EnemyController>().EnemyTakeDamage(50);
+        }
 
         if (collision.gameObject.tag == "DeathBox")
         {

@@ -383,18 +383,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd90d449e0f2e95478dc8f2314628633, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  horizontal: 0
   MaxPlayerHP: 100
   PlayerHP: 100
   PlayerHealthBar: {fileID: 0}
   speed: 10
   jumpingPower: 100
-  maxGravityMulti: 1.5
-  MaxVelocityY: 15
+  maxGravityMulti: 2
+  MaxVelocityY: 30
   minFallingActivation: 0
   _mainCamera: {fileID: 0}
   playerscore: 0
   score: {fileID: 0}
   bombscrollbar: {fileID: 0}
+  bombDiffuseValue: 0
   GroundCheck: {fileID: 3281812228557715918}
   groundLayer:
     serializedVersion: 2

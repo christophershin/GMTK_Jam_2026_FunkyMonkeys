@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float MaxCountdown = 60f;
 
     private float countdown;
+    private GameObject endofGameText;
 
     [SerializeField] private Slider SliderItem;
     [SerializeField] private GameObject pointsText;
@@ -37,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-
+        endofGameText = GameObject.Find("EndofGameText");
         playerPointSlider.GetComponent<Slider>().maxValue = MaxPlayerPoints;
         goToMenuButton.SetActive(false);
         countdown = MaxCountdown;
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
         if (playerHealth <= 0)
         {
             goToMenuButton.SetActive(true);
+            endofGameText.GetComponent<TextMeshProUGUI>().text = "Holy Aura Loss";
 
             if (playerPoints > 0)
             {
@@ -113,6 +115,7 @@ public class GameManager : MonoBehaviour
             {
                 float playerVelocity = Player.GetComponent<PlayerController>().horizontal;
 
+                // if player stands still
                 if (playerVelocity == 0)
                 {
                     standingStillTimer -= Time.deltaTime;
@@ -126,7 +129,7 @@ public class GameManager : MonoBehaviour
                         standingStillTimer = MaxStandingStillTimer;
                     }
 
-                }
+                }// if player is moving
                 else
                 {
                     standingStillTimer -= Time.deltaTime;
@@ -141,16 +144,21 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
-            }
+            } // When Player Wins
             else if (Player.GetComponent<PlayerController>().bombDiffuseValue >= 0 && !isPlayerWin)
             {
 
                 isPlayerWin = true;
 
-                float multipliedScore = (float)playerPoints * ((countdown / MaxCountdown));
+                float missingTime = MaxCountdown - countdown;
+
+                float multipliedScore = (float)playerPoints * ((missingTime / MaxCountdown));
 
                 playerPoints += (int)multipliedScore;
                 CreatePointsText("+", multipliedScore);
+
+                goToMenuButton.SetActive(true);
+                endofGameText.GetComponent<TextMeshProUGUI>().text = "Absolute Cinema!";
 
             }
         }

@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     private Transform player;
     [SerializeField] private Transform handPos;
     [SerializeField] private GameObject bullet;
+    [SerializeField] private int EnemyHealth = 100;
     
     private float time = 0;
 
@@ -39,6 +40,19 @@ public class EnemyController : MonoBehaviour
             GameObject bul =  Instantiate(bullet, handPos.position, rotator.rotation);
             Bullet bulScript = bul.GetComponent<Bullet>();
             bulScript.Initialize(handPos.position, player.position);
+        }
+
+        
+    }
+
+
+    public void EnemyTakeDamage(int num)
+    {
+        EnemyHealth -= num;
+
+        if (EnemyHealth <= 0)
+        {
+            Destroy(this.gameObject);
         }
     }
 }
